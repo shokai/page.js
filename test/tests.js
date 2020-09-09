@@ -393,6 +393,15 @@
           page('/pathname?hello=there');
         });
 
+        it('should omit the query string and hash', function(done) {
+          page('/pathname', function(ctx) {
+            expect(ctx.pathname).to.equal(base + (base && hashbang ? '#!' : '') + '/pathname');
+            done();
+          });
+
+          page('/pathname?hello=there#hash');
+        });
+
         it('should accommodate URL encoding', function(done) {
           page('/long path with whitespace', function(ctx) {
             expect(ctx.pathname).to.equal(base + (base && hashbang ? '#!' : '') +
